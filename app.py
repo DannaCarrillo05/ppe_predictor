@@ -3,13 +3,12 @@ from __future__ import annotations
 from io import BytesIO
 from pathlib import Path
 
-import cv2
 import numpy as np
 import streamlit as st
 from PIL import Image
 from ultralytics import YOLO
 
-MODEL_PATH = Path("train-3_best_float16.tflite")
+MODEL_PATH = Path("ppe_predictor.tflite")
 MODEL_IMGSZ = 512
 
 
