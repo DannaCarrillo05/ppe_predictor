@@ -34,7 +34,6 @@ def run_inference(image: Image.Image, conf: float, iou: float):
 
     result = results[0]
     annotated_bgr = result.plot()
-    annotated_rgb = cv2.cvtColor(annotated_bgr, cv2.COLOR_BGR2RGB)
 
     rows = []
     for box in result.boxes:
@@ -53,7 +52,7 @@ def run_inference(image: Image.Image, conf: float, iou: float):
             }
         )
 
-    return annotated_rgb, rows
+    return annotated_bgr, rows
 
 
 def main() -> None:
@@ -100,7 +99,7 @@ def main() -> None:
 
         with col2:
             st.subheader("Detecciones")
-            st.image(annotated, use_container_width=True)
+            st.image(annotated, channels="BGR", use_container_width=True)
 
         st.markdown("### Resultado estructurado")
         if detections:
