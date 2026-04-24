@@ -21,10 +21,9 @@ def load_model() -> YOLO:
 
 def run_inference(image: Image.Image, conf: float, iou: float):
     model = load_model()
-    image_np = np.array(image.convert("RGB"))
 
     results = model.predict(
-        source=image_np,
+        source=image.convert("RGB"),
         conf=conf,
         iou=iou,
         imgsz=MODEL_IMGSZ,
@@ -40,16 +39,15 @@ def run_inference(image: Image.Image, conf: float, iou: float):
         confidence = float(box.conf.item())
         x1, y1, x2, y2 = box.xyxy[0].tolist()
         label = result.names.get(cls_id, str(cls_id)) if isinstance(result.names, dict) else str(cls_id)
-        rows.append(
-            {
-                "clase": label,
-                "confianza": round(confidence, 4),
-                "x1": round(x1, 1),
-                "y1": round(y1, 1),
-                "x2": round(x2, 1),
-                "y2": round(y2, 1),
-            }
-        )
+
+        rows.append({
+            "clase": label,
+            "confianza": round(confidence, 4),
+            "x1": round(x1, 1),
+            "y1": round(y1, 1),
+            "x2": round(x2, 1),
+            "y2": round(y2, 1),
+        })
 
     return annotated_pil, rows
 
