@@ -9,7 +9,7 @@ import streamlit as st
 from PIL import Image
 from ultralytics import YOLO
 
-MODEL_PATH = Path("ppe_predictor.onnx")
+MODEL_PATH = Path("train-3_best_float16.tflite")
 
 
 @st.cache_resource
@@ -58,7 +58,7 @@ def run_inference(image: Image.Image, conf: float, iou: float):
 def main() -> None:
     st.set_page_config(page_title="PPE Predictor", page_icon="🦺", layout="wide")
     st.title("Detector de EPP (PPE) con Streamlit")
-    st.caption("Carga una imagen o toma una foto para ejecutar deteccion con el modelo ONNX.")
+    st.caption("Carga una imagen o toma una foto para ejecutar deteccion con el modelo TFLite.")
 
     with st.sidebar:
         st.subheader("Ajustes")
