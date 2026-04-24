@@ -10,6 +10,7 @@ from PIL import Image
 from ultralytics import YOLO
 
 MODEL_PATH = Path("train-3_best_float16.tflite")
+MODEL_IMGSZ = 512
 
 
 @st.cache_resource
@@ -27,7 +28,7 @@ def run_inference(image: Image.Image, conf: float, iou: float):
         source=image_np,
         conf=conf,
         iou=iou,
-        imgsz=640,
+        imgsz=MODEL_IMGSZ,
         verbose=False,
     )
 
@@ -62,6 +63,7 @@ def main() -> None:
 
     with st.sidebar:
         st.subheader("Ajustes")
+        st.caption(f"Tamano de entrada del modelo: {MODEL_IMGSZ}x{MODEL_IMGSZ}")
         conf = st.slider("Confianza minima", min_value=0.05, max_value=0.95, value=0.25, step=0.05)
         iou = st.slider("IoU NMS", min_value=0.10, max_value=0.95, value=0.45, step=0.05)
 
